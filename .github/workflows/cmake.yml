@@ -38,10 +38,20 @@ jobs:
             compiler: cl
             cmake-args: -A Win32
 
+          - name: Windows MSVC Win32 (clang-cl)
+            os: windows-latest
+            compiler: cl
+            cmake-args: -A Win32 -T ClangCl
+
           - name: Windows MSVC Win64
             os: windows-latest
             compiler: cl
             cmake-args: -A x64
+
+          - name: Windows MSVC Win64 (clang-cl)
+            os: windows-latest
+            compiler: cl
+            cmake-args: -A x64 -T ClangCl
 
           - name: Windows GCC
             os: windows-latest
