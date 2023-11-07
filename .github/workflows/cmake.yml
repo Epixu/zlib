@@ -42,7 +42,7 @@ jobs:
             os: windows-latest
             compiler: clang-cl
             cmake-args: -G "Ninja" -DCMAKE_C_COMPILER:FILEPATH="c:/program files/microsoft visual studio/2022/enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe" -DCMAKE_C_FLAGS=-m32
-            vcvars: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars32.bat"
+            vcvars: cnd /c "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars32.bat" &&
 
           - name: Windows MSVC Win64
             os: windows-latest
@@ -53,7 +53,7 @@ jobs:
             os: windows-latest
             compiler: clang-cl
             cmake-args: -G "Ninja" -DCMAKE_C_COMPILER:FILEPATH="c:/program files/microsoft visual studio/2022/enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe" -DCMAKE_C_FLAGS=-m64
-            vcvars: "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat"
+            vcvars: cmd /c "C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Auxiliary/Build/vcvars64.bat" &&
 
           - name: Windows GCC
             os: windows-latest
@@ -78,7 +78,7 @@ jobs:
         choco install --no-progress ninja ${{ matrix.packages }}
 
     - name: Generate project files
-      run: \"${{ matrix.vcvars }}\" && cmake -S ${{ matrix.src-dir || '.' }} -B ${{ matrix.build-dir || '.' }} ${{ matrix.cmake-args }} -D CMAKE_VERBOSE_MAKEFILE=1 -D CMAKE_BUILD_TYPE=${{ matrix.build-config || 'Release' }}
+      run: ${{ matrix.vcvars }} cmake -S ${{ matrix.src-dir || '.' }} -B ${{ matrix.build-dir || '.' }} ${{ matrix.cmake-args }} -D CMAKE_VERBOSE_MAKEFILE=1 -D CMAKE_BUILD_TYPE=${{ matrix.build-config || 'Release' }}
       env:
         CC: ${{ matrix.compiler }}
         CFLAGS: ${{ matrix.cflags }}
