@@ -40,8 +40,8 @@ jobs:
 
           - name: Windows MSVC Win32 (clang-cl)
             os: windows-latest
-            compiler: cl
-            cmake-args: -G "Ninja" -A Win32 -T ClangCl -D CMAKE_RC_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/bin/llvm-rc.exe"
+            compiler: clang-cl
+            cmake-args: -A Win32 -T ClangCl
 
           - name: Windows MSVC Win64
             os: windows-latest
@@ -50,8 +50,8 @@ jobs:
 
           - name: Windows MSVC Win64 (clang-cl)
             os: windows-latest
-            compiler: cl
-            cmake-args: -G "Ninja" -A x64 -T ClangCl -D CMAKE_RC_COMPILER="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/VC/Tools/Llvm/bin/llvm-rc.exe"
+            compiler: clang-cl
+            cmake-args: -A x64 -T ClangCl
 
           - name: Windows GCC
             os: windows-latest
@@ -97,3 +97,4 @@ jobs:
           **/CMakeFiles/CMakeOutput.log
           **/CMakeFiles/CMakeError.log
         retention-days: 7
+        #            cmake-args: -G "Ninja" -DCMAKE_C_COMPILER:FILEPATH="c:/program files/microsoft visual studio/2022/enterprise/VC/Tools/Llvm/x64/bin/clang-cl.exe"
