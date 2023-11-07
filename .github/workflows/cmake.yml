@@ -78,7 +78,7 @@ jobs:
         choco install --no-progress ninja ${{ matrix.packages }}
 
     - name: Generate project files
-      run: ${{ matrix.vcvars }} && cmake -S ${{ matrix.src-dir || '.' }} -B ${{ matrix.build-dir || '.' }} ${{ matrix.cmake-args }} -D CMAKE_VERBOSE_MAKEFILE=1 -D CMAKE_BUILD_TYPE=${{ matrix.build-config || 'Release' }}
+      run: \"${{ matrix.vcvars }}\" && cmake -S ${{ matrix.src-dir || '.' }} -B ${{ matrix.build-dir || '.' }} ${{ matrix.cmake-args }} -D CMAKE_VERBOSE_MAKEFILE=1 -D CMAKE_BUILD_TYPE=${{ matrix.build-config || 'Release' }}
       env:
         CC: ${{ matrix.compiler }}
         CFLAGS: ${{ matrix.cflags }}
