@@ -41,7 +41,7 @@ jobs:
           - name: Windows MSVC Win32 (clang-cl)
             os: windows-latest
             compiler: cl
-            cmake-args: -A Win32 -T ClangCl
+            cmake-args: -A Win32 -T ClangCl -D CMAKE_RC_COMPILER=llvm-rc 
 
           - name: Windows MSVC Win64
             os: windows-latest
@@ -51,7 +51,7 @@ jobs:
           - name: Windows MSVC Win64 (clang-cl)
             os: windows-latest
             compiler: cl
-            cmake-args: -A x64 -T ClangCl
+            cmake-args: -A x64 -T ClangCl -D CMAKE_RC_COMPILER=llvm-rc 
 
           - name: Windows GCC
             os: windows-latest
