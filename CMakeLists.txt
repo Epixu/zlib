@@ -15,7 +15,12 @@ include(CheckTypeSize)
 include(CheckFunctionExists)
 include(CheckIncludeFile)
 include(CheckCSourceCompiles)
-enable_testing()
+
+option(ZLIB_ENABLE_TESTING "Enable testing and example applications" ON)
+
+if (ZLIB_ENABLE_TESTING)
+	enable_testing()
+endif()
 
 check_include_file(sys/types.h HAVE_SYS_TYPES_H)
 check_include_file(stdint.h    HAVE_STDINT_H)
@@ -190,24 +195,26 @@ if(NOT SKIP_INSTALL_FILES AND NOT SKIP_INSTALL_ALL )
     install(FILES ${ZLIB_PC} DESTINATION "${INSTALL_PKGCONFIG_DIR}")
 endif()
 
-#============================================================================
-# Example binaries
-#============================================================================
+if (ZLIB_ENABLE_TESTING)
+	#============================================================================
+	# Example binaries
+	#============================================================================
 
-add_executable(example test/example.c)
-target_link_libraries(example zlib)
-add_test(example example)
+	add_executable(example test/example.c)
+	target_link_libraries(example zlib)
+	add_test(example example)
 
-add_executable(minigzip test/minigzip.c)
-target_link_libraries(minigzip zlib)
+	add_executable(minigzip test/minigzip.c)
+	target_link_libraries(minigzip zlib)
 
-if(HAVE_OFF64_T)
-    add_executable(example64 test/example.c)
-    target_link_libraries(example64 zlib)
-    set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
-    add_test(example64 example64)
+	if(HAVE_OFF64_T)
+		add_executable(example64 test/example.c)
+		target_link_libraries(example64 zlib)
+		set_target_properties(example64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
+		add_test(example64 example64)
 
-    add_executable(minigzip64 test/minigzip.c)
-    target_link_libraries(minigzip64 zlib)
-    set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
+		add_executable(minigzip64 test/minigzip.c)
+		target_link_libraries(minigzip64 zlib)
+		set_target_properties(minigzip64 PROPERTIES COMPILE_FLAGS "-D_FILE_OFFSET_BITS=64")
+	endif()
 endif()
